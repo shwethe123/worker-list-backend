@@ -3,8 +3,8 @@ const morgan = require('morgan');
 require('dotenv').config();
 const mongoose = require('mongoose');
 const cors = require('cors');
-const Worker_router = require('./router/WorkerList');
-const path = require("path");
+const path = require('path');
+const Worker_router = require('./router/WorkerList'); // Ensure this path is correct
 
 const app = express();
 app.use(morgan('dev'));
@@ -12,7 +12,8 @@ app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/uploads", express.static(path.join(__dirname, "..", "uploads")));
+// Serve static files
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const PORT = process.env.PORT || 3000;
 const MONGOOSE_URL = process.env.MONGOOSE_URL;

@@ -40,9 +40,9 @@ const Worker_schema = new schema({
     type: String,
     required: true,
   },
-  image: {
-    type: String, // Store the image path
-  },
+  profilePicture: {
+    type: String, // Store the file path as a string
+  }
 }, { timestamps: true });
 
 module.exports = mongoose.model("WorkerList", Worker_schema);

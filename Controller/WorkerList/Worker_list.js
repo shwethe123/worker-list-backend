@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-const Worker_schema = require('../../Schema/WorkerList/WorkerList');
+const Worker_schema = require('../../Schema/WorkerList/WorkerList'); // Ensure this path is correct
 
 const Worker_controller = {
     index: async (req, res) => {
@@ -20,14 +19,20 @@ const Worker_controller = {
             if (!id || !name || !phone || !location || !department || !status || !condition || !time || !reason) {
                 return res.status(400).json({ msg: 'All fields are required' });
             }
-            if (!req.file) {
-                return res.status(400).json({ msg: "Image is required" });
-              }
-              const imagePath = req.file.path;
 
             const worker_store = await Worker_schema.create({
-                id, name, phone, location, department, status, condition, time, reason,image: imagePath,
+                id,
+                name,
+                phone,
+                location,
+                department,
+                status,
+                condition,
+                time,
+                reason,
+                profilePicture: req.file ? req.file.path : null, // Save the file path if uploaded
             });
+
             return res.status(201).json(worker_store);
         } catch (error) {
             return res.status(500).json({ msg: 'Server Error', error: error.message });
