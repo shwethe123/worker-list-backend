@@ -16,6 +16,14 @@ const Worker_controller = {
     store: async (req, res) => {
         try {
             const { id, name, phone, location, department, status, condition, time, reason } = req.body;
+            const existing_id = await Worker_schema.findOne({id: id});
+            
+            if (existing_id) {
+                return res.status(400).json({ msg: 'Worker ID already exists' });
+            };
+            const profile = req.file ? req.file.path : 
+            "https://res.cloudinary.com/dfao1qztg/image/upload/v123456789/default-profile.png"; // Default profile picture
+            
             if (!id || !name || !phone || !location || !department || !status || !condition || !time || !reason) {
                 return res.status(400).json({ msg: 'All fields are required' });
             }
@@ -30,12 +38,12 @@ const Worker_controller = {
                 condition,
                 time,
                 reason,
-                profilePicture: req.file ? req.file.path : null, // Save the file path if uploaded
+                profile,
             });
 
-            return res.status(201).json(worker_store);
+            return res.status(201).json({message: "worker add successfully", worker_store});
         } catch (error) {
-            return res.status(500).json({ msg: 'Server Error', error: error.message });
+            return res.status(500).json({ msg: 'Error add worker', error: error.message });
         }
     },
 

@@ -40,9 +40,10 @@ const Worker_schema = new schema({
     type: String,
     required: true,
   },
-  profilePicture: {
-    type: String, // Store the file path as a string
-  }
+  profile: {
+    type: String,
+    default: "https://res.cloudinary.com/dfao1qztg/image/upload/v123456789/default-profile.png"
+  },
 }, { timestamps: true });
 
 module.exports = mongoose.model("WorkerList", Worker_schema);
