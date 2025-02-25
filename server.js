@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 const Worker_router = require('./router/WorkerList'); // Ensure this path is correct
+const Worker_set_router = require('./router/WorkerSet'); // Ensure this path is correct
 
 const app = express();
 app.use(morgan('dev'));
@@ -33,4 +34,5 @@ app.get('/', (req, res) => {
     res.json({ msg: 'Hello world' });
 });
 
-app.use('/api', Worker_router); // Use '/api' as the base route for all worker routes
+app.use('/api', Worker_router);
+app.use('/api', Worker_set_router);
