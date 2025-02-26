@@ -6,7 +6,7 @@ const router = express();
 
 router.get('/worker_set', Worker_controller.index);
 
-router.post('/worker_set',upload.single('profile'), Worker_controller.store);
+router.post('/worker_set',upload.single('image'), Worker_controller.store);
 
 router.get('/worker_set/:id', Worker_controller.show);
 

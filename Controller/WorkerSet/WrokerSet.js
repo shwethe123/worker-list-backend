@@ -12,13 +12,21 @@ const worker_set_controller = {
     },
     store: async (req, res) => {
         try {
-            const { id, name, phone, location, department, condition, time, reason } = req.body;
-            const profile = req.file ? req.file.path : 
-            "https://res.cloudinary.com/dfao1qztg/image/upload/v123456789/default-profile.png"; 
+            const { id, name, phone, location, department, condition, startDate, endDate, reason,leader_approval } = req.body;
+            const image = req.file ? req.file.path : 
+            "https://res.cloudinary.com/dfao1qztg/image/upload/v123456789/default-image.png"; 
 
-            if (!id || !name || !phone || !location || !department || !condition || !time || !reason) {
+            if (!id || !name || !phone || !location || !department || !condition || !endDate || !startDate || !reason) {
                 return res.status(400).json({ msg: 'All fields are required' });
             }
+
+            if ( leader_approval === "AM24" || leader_approval === "AG187" 
+                || leader_approval === "AG94" || leader_approval === "AM43"
+                || leader_approval === "AG209" || leader_approval === "64")
+
+                { 
+                    return res.status(400).json({ msg: 'Invalid leader approval' }); 
+                };
 
             const newWorker = await Worker_set_schema.create({
                 id,
@@ -27,9 +35,11 @@ const worker_set_controller = {
                 location,
                 department,
                 condition,
-                time,
+                startDate,
+                endDate,
                 reason,
-                profile,
+                image,
+                leader_approval
             });
             res.status(201).json({ msg: 'Worker created', newWorker });
         } catch (error) {
