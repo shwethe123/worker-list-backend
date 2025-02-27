@@ -44,6 +44,13 @@ const Worker_schema = new schema({
     type: String,
     default: "https://res.cloudinary.com/dfao1qztg/image/upload/v123456789/default-profile.png"
   },
+  leader_approval : {
+    type: String,
+    required: false, 
+  },
+  textArea : {
+    type: String,
+  }
 }, { timestamps: true });
 
 module.exports = mongoose.model("WorkerList", Worker_schema);

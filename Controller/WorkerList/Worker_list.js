@@ -1,4 +1,5 @@
-const Worker_schema = require('../../Schema/WorkerList/WorkerList'); // Ensure this path is correct
+const Worker_schema = require('../../Schema/WorkerList/WorkerList');
+const mongoose = require('mongoose');
 
 const Worker_controller = {
     index: async (req, res) => {
@@ -15,7 +16,7 @@ const Worker_controller = {
 
     store: async (req, res) => {
         try {
-            const { id, name, phone, location, department, status, condition, time, reason } = req.body;
+            const { id, leader_approval, textArea, name, phone, location, department, status, condition, time, reason } = req.body;
             const existing_id = await Worker_schema.findOne({id: id});
             
             if (existing_id) {
@@ -30,6 +31,7 @@ const Worker_controller = {
 
             const worker_store = await Worker_schema.create({
                 id,
+                leader_approval,
                 name,
                 phone,
                 location,
@@ -39,6 +41,7 @@ const Worker_controller = {
                 time,
                 reason,
                 profile,
+                textArea,
             });
 
             return res.status(201).json({message: "worker add successfully", worker_store});
