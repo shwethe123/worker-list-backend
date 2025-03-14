@@ -46,7 +46,6 @@ const Worker_schema = new schema({
   },
   leader_approval : {
     type: String,
-    required: false, 
   },
   textArea : {
     type: String,

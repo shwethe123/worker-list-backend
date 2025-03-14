@@ -60,10 +60,11 @@ const Worker_set_schema = new schema(
     },
     leader_approval: {
         type: String,
-        required: false,
-        enum: ["AM24","AM43", "AM64", "AG94" , "AG187", "AG209"],
-        default: false,
     },
+    status: {
+      type: String,
+      required: true
+    }
   },
   { timestamps: true }
 );
